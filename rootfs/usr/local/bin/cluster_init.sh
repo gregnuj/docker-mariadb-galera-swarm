@@ -1,22 +1,10 @@
 #!/bin/bash -e
 
-# Set 'DEBUG=1' environment variable to see detailed output for debugging
-if [[ ! -z "$DEBUG" && "$DEBUG" != 0 && "${DEBUG^^}" != "FALSE" ]]; then
-  set -x
-fi
+[[ -z "$DEBUG" ]] || set -x
 
-# import script respurces
-source docker_info.sh
-source cluster_info.sh
+source cluster_common.sh
 
-# Create a galera config
-declare CONFD="/etc/mysql/conf.d"
-declare GALERA_CNF="$CONFD/galera.cnf"
-mkdir -p "$CONFD"
-touch "${GALERA_CNF}"
-chown -R mysql:mysql $CONFD
-
-cat <<EOF > "$GALERA_CNF"
+cat <<-EOF > "$(cluster_cnf)" 
 [mysqld]
 skip_name_resolve
 
@@ -66,7 +54,9 @@ wsrep_provider_options="pc.weight=$(cluster_weight)"
 
 EOF
 
-echo Created "$GALERA_CNF"
+echo Created "$(cluster_cnf)"
 echo "-------------------------------------------------------------------------"
-grep -v "wsrep-sst-auth"  $GALERA_CNF
+grep -v "wsrep-sst-auth"  $(cluster_cnf)
 echo "-------------------------------------------------------------------------"
+
+

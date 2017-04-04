@@ -1,22 +1,17 @@
 #!/bin/bash -e
 
-# Set 'DEBUG=1' environment variable to see detailed output for debugging
-if [[ ! -z "$DEBUG" && "$DEBUG" != 0 && "${DEBUG^^}" != "FALSE" ]]; then
-  set -x
-fi
+[[ -z "$DEBUG" ]] || set -x
 
-source docker_info.sh
+declare MYSQL_CONFD="${MYSQL_CONFD:="/etc/mysql/conf.d"}"
+declare DATADIR="${DATADIR:="/var/lib/mysql"}"
 
-# Defaults to /var/lib/mysql
-function mysql_dir(){
-    DATADIR="${DATADIR:="/var/lib/mysql"}"
-    echo "${DATADIR}"
+function mysql_datadir(){
+    echo "$DATADIR"
 }
 
-function mysql_auth(){
-    USER="$(mysql_user $1)"
-    PASSWORD="$(mysql_password $1)"
-    echo "$USER:$PASSWORD"
+function mysql_confd(){
+    mkdir -p "${MYSQL_CONFD}"
+    echo "$MYSQL_CONFD"
 }
 
 function mysql_user(){
@@ -26,6 +21,11 @@ function mysql_user(){
         USER=${MYSQL_USER:="root"}
     fi
     echo "$USER"
+}
+
+function wsrep_user(){
+    WSREP_USER="${WSREP_USER:="xtrabackup"}"
+    echo "$WSREP_USER"
 }
 
 function mysql_password(){
@@ -48,11 +48,14 @@ function mysql_password(){
 }
 
 
-function mysql_admin(){
-    MYSQL_ADMIN=( mysql --protocol=socket --socket=/var/run/mysqld/mysqld.sock -hlocalhost )
-    MYSQL_ADMIN+=( -u"$(mysql_user root)" )
-    MYSQL_ADMIN+=( -p"$(mysql_password root)" )
-    echo "${MYSQL_ADMIN[@]}"
+function mysql_client(){
+    MYSQL_CLIENT=( "mysql" )
+    MYSQL_CLIENT+=( "--protocol=socket" )
+    MYSQL_CLIENT+=( "--socket=/var/run/mysqld/mysqld.sock" )
+    MYSQL_CLIENT+=( "-hlocalhost" )
+    MYSQL_CLIENT+=( -"-u$(mysql_user root)" )
+    MYSQL_CLIENT+=( "=p$(mysql_password root)" )
+    echo "${MYSQL_CLIENT[@]}"
 }
 
 function main(){
@@ -61,7 +64,7 @@ function main(){
             echo "$(mysql_auth $2)"
             ;;
         -d|--dir)
-            echo "$(mysql_dir)"
+            echo "$(mysql_datadir)"
             ;;
         -p|--password)
             echo "$(mysql_password $2)"
