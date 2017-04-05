@@ -11,6 +11,12 @@ function cluster_name(){
     echo "${CLUSTER_NAME}"
 }
 
+# Defaults to galera_auto.cnf
+function cluster_cnf(){
+    CLUSTER_CNF="${CLUSTER_CNF:="$(mysql_confd)/galera_auto.cnf"}"
+    echo "${CLUSTER_CNF}"
+}
+
 # Defaults to /var/lib/mysql/grastate.dat
 function grastate_dat(){
     GRASTATE_DAT="${GRASTATE_DAT:="$(mysql_dir)/grastate.dat"}"
