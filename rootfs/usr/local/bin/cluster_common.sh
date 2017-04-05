@@ -124,7 +124,6 @@ function cluster_weight(){
 function cluster_seqno(){
     if [[ -z "${CLUSTER_SEQNO}" ]]; then :
         GRASTATE_DAT="$(grastate_dat)"
-    else
     fi
     echo "$CLUSTER_SEQNO"
 }
