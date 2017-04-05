@@ -1,4 +1,5 @@
 #!/bin/bash -e
+#
 
 [[ -z "$DEBUG" ]] || set -x
 

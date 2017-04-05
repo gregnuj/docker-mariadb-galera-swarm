@@ -1,5 +1,5 @@
 #!/bin/bash -e
-
+#
 # Set 'DEBUG=1' environment variable to see detailed output for debugging
 if [[ ! -z "$DEBUG" && "$DEBUG" != 0 && "${DEBUG^^}" != "FALSE" ]]; then
   set -x

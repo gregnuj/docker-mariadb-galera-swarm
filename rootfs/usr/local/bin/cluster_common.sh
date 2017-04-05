@@ -1,4 +1,5 @@
 #!/bin/bash -e
+#
 
 [[ -z "$DEBUG" ]] || set -x
 
@@ -147,8 +148,6 @@ function cluster_position(){
     CLUSTER_POSITION="$(cluster_uuid):$(cluster_seqno)"
     echo "$CLUSTER_POSITION" 
 }
-
-
 
 function main(){
     case "$1" in
