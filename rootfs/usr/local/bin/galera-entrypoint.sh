@@ -56,12 +56,8 @@ fi
 
 # Attempt recovery if possible
 command=( "$@" )
-if [[ "$(cluster_position)" != '00000000-0000-0000-0000-000000000000:-1' ]]; then
-    command+=( " --wsrep_start_position=$(cluster_position)" )
-elif [[ "$(cluster_primary)" == "$(node_address)" ]]; then
+if [[ "$(cluster_primary)" == "$(node_address)" ]]; then
     command+=( " --wsrep-new-cluster" )
-else
-    command+=( " --wsrep-recover" )
 fi
 
 exec "${command[@]}"
