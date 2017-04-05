@@ -17,9 +17,11 @@ function mysql_init_start(){
 }
 
 function mysql_init_stop(){
-    if ! kill -s TERM "$pid" || ! wait "$pid"; then
-        echo >&2 'MySQL init process failed.'
-        exit 1
+    if [[ ! -z $PID ]]; then
+        if ! kill -s TERM "$PID" || ! wait "$PID"; then
+            echo >&2 'MySQL init process failed.'
+            exit 1
+        fi
     fi
 }
 

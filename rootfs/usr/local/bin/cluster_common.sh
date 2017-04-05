@@ -19,7 +19,7 @@ function cluster_cnf(){
 
 # Defaults to /var/lib/mysql/grastate.dat
 function grastate_dat(){
-    GRASTATE_DAT="${GRASTATE_DAT:="$(mysql_dir)/grastate.dat"}"
+    GRASTATE_DAT="${GRASTATE_DAT:="$(mysql_datadir)/grastate.dat"}"
     echo "${GRASTATE_DAT}"
 }
 
@@ -129,9 +129,6 @@ function main(){
             ;;
         --auth)
             echo "$(cluster_sst_auth)"
-            ;;
-        -d|--dir)
-            echo "$(datadir)"
             ;;
         -f|--fqdn)
             echo "$(fqdn)"
