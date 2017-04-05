@@ -6,6 +6,10 @@
 source swarm_common.sh
 source mysql_common.sh
 
+declare CLUSTER_UUID="${CLUSTER_UUID:="00000000-0000-0000-0000-000000000000"}"
+declare CLUSTER_SEQNO="${CLUSTER_SEQNO:="-1"}"
+declare CLUSTER_STB="${CLUSTER_STB:="0"}"
+
 # Defaults to servicename-cluster
 function cluster_name(){
     CLUSTER_NAME="${CLUSTER_NAME:="$(service_name)-cluster"}"
@@ -25,10 +29,6 @@ function grastate_dat(){
         CLUSTER_UUID="$(awk '/^uuid:/{print $2}' $GRASTATE_DAT)"
         CLUSTER_STB="$(awk '/^safe_to_bootstrap:/{print $2}' $GRASTATE_DAT)"
         CLUSTER_SEQNO="$(awk '/^seqno:/{print $2}' $GRASTATE_DAT)"
-    else
-	CLUSTER_UUID='00000000-0000-0000-0000-000000000000'
-	CLUSTER_SEQNO=-1
-	CLUSTER_STB=0
     fi
     echo "${GRASTATE_DAT}"
 }
@@ -144,6 +144,7 @@ function cluster_stb(){
 }
 
 function cluster_position(){
+    
     CLUSTER_POSITION="$(cluster_uuid):$(cluster_seqno)"
     echo "$CLUSTER_POSITION" 
 }
