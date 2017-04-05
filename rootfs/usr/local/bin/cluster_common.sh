@@ -20,6 +20,15 @@ function cluster_cnf(){
 # Defaults to /var/lib/mysql/grastate.dat
 function grastate_dat(){
     GRASTATE_DAT="${GRASTATE_DAT:="$(mysql_datadir)/grastate.dat"}"
+    if [[ -f "$GRASTATE_DAT" ]]
+        CLUSTER_UUID="$(awk '/^uuid:/{print $2}' $GRASTATE_DAT)"
+        CLUSTER_STB="$(awk '/^safe_to_bootstrap:/{print $2}' $GRASTATE_DAT)"
+        CLUSTER_SEQNO="$(awk '/^seqno:/{print $2}' $GRASTATE_DAT)"
+    else
+	CLUSTER_UUID='00000000-0000-0000-0000-000000000000'
+	CLUSTER_SEQNO=-1
+	CLUSTER_STB=0
+    fi
     echo "${GRASTATE_DAT}"
 }
 
@@ -111,16 +120,35 @@ function cluster_weight(){
     echo $((CLUSTER_WEIGHT % 255))
 }
 
-function cluster_bootstrap(){
-    if [[ -f $(grastate_dat) ]]; then
-        CLUSTER_BOOTSTRAP=0
-    elif [[ $(cluster_primary) == $(node_address) ]]; then
-        CLUSTER_BOOTSTRAP=1
+function cluster_seqno(){
+    if [[ -z "${CLUSTER_SEQNO}" ]]; then :
+        GRASTATE_DAT="$(grastate_dat)"
     else
-        CLUSTER_BOOTSTRAP=0
     fi
-    echo "$CLUSTER_BOOTSTRAP"
+    echo "$CLUSTER_SEQNO"
 }
+
+function cluster_uuid(){
+    if [[ -z "${CLUSTER_UUID}" ]]; then :
+        GRASTATE_DAT="$(grastate_dat)"
+    fi
+    echo "$CLUSTER_UUID"
+}
+
+function cluster_stb(){
+    GRASTATE_DAT="$(grastate_dat)"
+    if [[ -z "${CLUSTER_STB}" ]]; then 
+        GRASTATE_DAT="$(grastate_dat)"
+    fi
+    echo "$CLUSTER_STB"
+}
+
+function cluster_position(){
+    CLUSTER_POSITION="$(cluster_uuid):$(cluster_seqno)"
+    echo "$CLUSTER_POSITION" 
+}
+
+
 
 function main(){
     case "$1" in
