@@ -50,11 +50,12 @@ function mysql_init_root(){
     mysql=( $(mysql_init_client) )
     sql=( "SET @@SESSION.SQL_LOG_BIN=0;" )
     sql+=( "DELETE FROM mysql.user ;" )
-    sql+=( "CREATE USER 'root'@'%' IDENTIFIED BY '${MYSQLD_INIT_ROOT}' ;" )
+    sql+=( "CREATE USER 'root'@'%' IDENTIFIED BY '$(mysql_password root)' ;" )
     sql+=( "GRANT ALL ON *.* TO 'root'@'%' WITH GRANT OPTION ;" )
     sql+=( "DROP DATABASE IF EXISTS test ;" )
     sql+=( "FLUSH PRIVILEGES ;" )
     echo "${sql[@]}" | "${mysql[@]}"
+    MYSQLD_INIT_ROOT=1
 }
 
 function mysql_init_tz(){
