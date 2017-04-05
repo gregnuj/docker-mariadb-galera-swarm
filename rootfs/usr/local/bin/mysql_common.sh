@@ -53,8 +53,8 @@ function mysql_client(){
     MYSQL_CLIENT+=( "--protocol=socket" )
     MYSQL_CLIENT+=( "--socket=/var/run/mysqld/mysqld.sock" )
     MYSQL_CLIENT+=( "-hlocalhost" )
-    MYSQL_CLIENT+=( -"-u$(mysql_user root)" )
-    MYSQL_CLIENT+=( "=p$(mysql_password root)" )
+    MYSQL_CLIENT+=( "-u$(mysql_user root)" )
+    MYSQL_CLIENT+=( "-p$(mysql_password root)" )
     echo "${MYSQL_CLIENT[@]}"
 }
 
