@@ -21,7 +21,7 @@ function cluster_cnf(){
 # Defaults to /var/lib/mysql/grastate.dat
 function grastate_dat(){
     GRASTATE_DAT="${GRASTATE_DAT:="$(mysql_datadir)/grastate.dat"}"
-    if [[ -f "$GRASTATE_DAT" ]]
+    if [[ -f "$GRASTATE_DAT" ]]; then
         CLUSTER_UUID="$(awk '/^uuid:/{print $2}' $GRASTATE_DAT)"
         CLUSTER_STB="$(awk '/^safe_to_bootstrap:/{print $2}' $GRASTATE_DAT)"
         CLUSTER_SEQNO="$(awk '/^seqno:/{print $2}' $GRASTATE_DAT)"
