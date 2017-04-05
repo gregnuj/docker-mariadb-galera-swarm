@@ -6,24 +6,24 @@ source mysql_common.sh
 source cluster_common.sh
 declare MYSQLD=( $@ )
 
-function mysqld_init_install(){
+function mysql_init_install(){
     mkdir -p "$(mysql_datadir)"
     mysql_install_db --datadir="$(mysql_datadir)" --rpm 
 }
 
-function mysqld_init_start(){
+function mysql_init_start(){
     "${MYSQLD[@]}" --skip-networking --socket=/var/run/mysqld/mysqld.sock &
     PID="$!"
 }
 
-function mysqld_init_stop(){
+function mysql_init_stop(){
     if ! kill -s TERM "$pid" || ! wait "$pid"; then
         echo >&2 'MySQL init process failed.'
         exit 1
     fi
 }
 
-function mysqld_init_client(){
+function mysql_init_client(){
     mysql=( mysql --protocol=socket -uroot -hlocalhost --socket=/var/run/mysqld/mysqld.sock )
     if [ ! -z "$MYSQLD_INIT_ROOT" ]; then
         mysql+=( -p"${MYSQLD_INIT_ROOT}" )
@@ -31,7 +31,7 @@ function mysqld_init_client(){
     echo "${mysql[@]}"
 }
 
-function mysqld_init_check(){
+function mysql_init_check(){
     mysql=( $(mysql_init_client) )
     for i in {30..0}; do
         if echo 'SELECT 1' | "${mysql[@]}" &> /dev/null; then
@@ -47,7 +47,7 @@ function mysqld_init_check(){
 }
 
 function mysql_init_root(){
-    mysql=( $(mysqld_init_client) )
+    mysql=( $(mysql_init_client) )
     sql=( "SET @@SESSION.SQL_LOG_BIN=0;" )
     sql+=( "DELETE FROM mysql.user ;" )
     sql+=( "CREATE USER 'root'@'%' IDENTIFIED BY '${MYSQLD_INIT_ROOT}' ;" )
@@ -96,7 +96,7 @@ function mysql_init_wsrep(){
     echo "Created user $WSREP_USER"
 }
 
-function mysqld_init_scripts(){
+function mysql_init_scripts(){
     mysql=( $(mysql_client) )
     for f in /etc/initdb.d/*; do
         case "$f" in
@@ -111,16 +111,16 @@ function mysqld_init_scripts(){
 
 function main(){
     echo "Initailizing new database"
-    mysqld_init_install
-    mysqld_init_start
-    mysqld_init_check 
-    mysqld_init_root 
-    mysqld_init_tz 
-    mysqld_init_user 
-    mysqld_init_database
-    mysqld_init_wsrep
-    mysqld_init_scripts 
-    mysqld_init_stop 
+    mysql_init_install
+    mysql_init_start
+    mysql_init_check 
+    mysql_init_root 
+    mysql_init_tz 
+    mysql_init_user 
+    mysql_init_database
+    mysql_init_wsrep
+    mysql_init_scripts 
+    mysql_init_stop 
     echo "Initailizing database completed"
 }
 

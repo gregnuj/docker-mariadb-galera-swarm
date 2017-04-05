@@ -10,15 +10,12 @@ By using DNS resolution to discover other nodes they don't have to be specified 
 ### Example (Docker 1.12 Swarm Mode)
 
 ```bash
- $ docker service create --name galera-seed --replicas 1 [OPTIONS] [IMAGE] 
  $ docker service create --name galera --replicas 2 [OPTIONS] [IMAGE] 
- $ docker service rm galera-seed
- $ docker service scale galera=3
+ $ docker service scale galera=5
 ```
 
 ### Environment Variables
 
- - `SEED_NOSE` (optional) use to set container as seed node
  - `GALERA_PASSWORD` or `XTRABACKUP_PASSWORD` (optional - defaults to hash of `ROOT_PASSWORD`)
  - `SYSTEM_PASSWORD` (optional - defaults to hash of `ROOT_PASSWORD`)
  - `SERVICE_NAME` (optional - defaults to docker name
@@ -30,7 +27,7 @@ Additional variables for "seed":
  - `MYSQL_ROOT_PASSWORD` (optional)
  - `MYSQL_DATABASE` (optional)
  - `MYSQL_USER` (optional - defaults to `MYSQL_DATABASE`)
- - `MYSQL_PASSWORD` (optional - defuaults to hash of `ROOT_PASSWORD`)
+ - `MYSQL_PASSWORD` (optional - defaults to hash of `ROOT_PASSWORD`)
 
 Additional variables for "node":
 
