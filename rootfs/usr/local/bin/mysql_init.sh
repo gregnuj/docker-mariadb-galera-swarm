@@ -17,14 +17,6 @@ function mysql_init_start(){
     PID="$!"
 }
 
-function mysql_init_stop(){
-    mysqlshut=( mysqladmin shutdown -uroot )
-    if [ ! -z "$MYSQLD_INIT_ROOT" ]; then
-        mysqlshut+=( "-p$(mysql_password root)" )
-    fi
-    "${mysqlshut[@]}"
-}
-
 function mysql_init_client(){
     mysql=( mysql --protocol=socket -uroot -hlocalhost --socket=/var/run/mysqld/mysqld.sock )
     if [ ! -z "$MYSQLD_INIT_ROOT" ]; then
@@ -123,7 +115,7 @@ function main(){
     mysql_init_database
     mysql_init_wsrep
     mysql_init_scripts 
-    mysql_init_stop 
+    mysql_shutdown
     echo "Initailizing database completed"
 }
 

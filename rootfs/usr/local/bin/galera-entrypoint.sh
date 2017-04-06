@@ -56,8 +56,12 @@ fi
 
 # Attempt recovery if possible
 cmd=( "$*" )
-if [[ -z "$(cluster_position)" && "$(cluster_primary)" == "$(node_address)" ]]; then
-    cmd+=( "--wsrep-new-cluster" )
+if [[ -f "$(grastate_dat)" ]]; then
+    mysqld_safe ${cmd[@]:1} --wsrep-recover
+    mysql_shutdown
+elif [[ "$(cluster_primary)" == "$(node_address)" ]]; then
+    mysqld_safe ${cmd[@]:1} --wsrep-new-cluster
+    mysql_shutdown
 fi
 
 exec ${cmd[*]}

@@ -48,6 +48,10 @@ function mysql_password(){
     echo "${PASSWORD}"
 }
 
+function mysql_shutdown(){
+    mysql_client=( "$(mysql_client)" )
+    mysqladmin shutdown ${mysql_client[@]:1}
+}
 
 function mysql_client(){
     MYSQL_CLIENT=( "mysql" )
