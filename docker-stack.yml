@@ -5,17 +5,9 @@ services:
   data:
     image: gregnuj/mariadb-galera-swarm
     environment:
-      - MYSQL_DATABASE=my-stack-name
-      - MYSQL_USER=my-stack-name
-      - MYSQL_PASSWORD_FILE=/run/secrets/my-stack-name
-      - MYSQL_ROOT_PASSWORD_FILE=/run/secrets/my-stack-name-root
-    secrets:
-      - source: my-stack-name
-        mode: 0444
-      - source: my-stack-name-root
-        mode: 0444
+      - MYSQL_ROOT_PASSWORD=dont_use_this
     networks:
-      - internal
+      - data-net
     volumes:
       - data-dv:/var/lib/mysql
     deploy:
@@ -25,11 +17,5 @@ volumes:
   data-dv:
 
 networks:
-  my-stack-name:
+  data-net:
     driver: overlay
-
-secrets:
-  my-stack-name:
-    external: true
-  my-stack-name-root:
-    external: true

@@ -10,12 +10,12 @@ By using DNS resolution to discover other nodes they don't have to be specified 
 ### Example (Docker 1.13 Swarm Mode)
 
 ```bash
- $ docker service create --name galera --replicas 2 [OPTIONS] [IMAGE] 
+ $ docker stack deploy -c docker-stack.yml app-env
 ```
 
 ### Environment Variables
 
- - maria/mysql vars (`mysql_common.sh`) 
+maria/mysql vars (`mysql_common.sh`) 
  - `MYSQL_CONFD` (defaults to /etc/mysql/conf.d)
  - `MYSQL_DATABASE` (optional - defaults to substring before - in `SERVICE_NAME`)
  - `MYSQL_PASSWORD` (optional - defaults to hash based on `MYSQL_USER` and `MYSQL_ROOT_PASSSWORD`)
@@ -23,7 +23,7 @@ By using DNS resolution to discover other nodes they don't have to be specified 
  - `MYSQL_USER` (optional - dfaults to `MYSQL_DATABASE` name)
  - `DATADIR` (defaults to /var/lib/mysql)
 
- - cluster vars (`cluster_common.sh`)
+Cluster vars (`cluster_common.sh`)
  - `CLUSTER_CNF` (optional - defaults to `$MYSQL_CONFD`)
  - `CLUSTER_MEMBERS` (optional - comma seperated list)
  - `CLUSTER_MINIMUM` (optional defaults to 2)
@@ -40,7 +40,7 @@ By using DNS resolution to discover other nodes they don't have to be specified 
  - `WSREP_USER` (optional - defaults to xtrabackup)
 
 
- - Docker swarm vars (`swarm_common.sh`)
+Docker swarm vars (`swarm_common.sh`)
  - `CONTAINER_NAME` (defaults to coantiner name in stack/compose file)
  - `FQDN` (defaults to eth0 docker dns fqdn)
  - `NODE_ADDRESS` (optional - defaults to ip address of eth0)

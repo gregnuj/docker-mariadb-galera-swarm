@@ -47,7 +47,7 @@ function cluster_address(){
 
 #
 function cluster_sst_method(){
-    CLUSTER_SST_METHOD="${CLUSTER_SST_METHOD:="xtrabackup"}"
+    CLUSTER_SST_METHOD="${CLUSTER_SST_METHOD:="xtrabackup-v2"}"
     echo "${CLUSTER_SST_METHOD}"
 }
 
