@@ -49,8 +49,11 @@ function mysql_password(){
 }
 
 function mysql_shutdown(){
-    mysql_client=( "$(mysql_client)" )
-    mysqladmin shutdown ${mysql_client[@]:1}
+    MYSQL_SHUT=( "mysqladmin" )
+    MYSQL_SHUT+=( "shutdown" )
+    MYSQL_SHUT+=( "-u$(mysql_user root)" )
+    MYSQL_SHUT+=( "-p$(mysql_password root)" )
+    "${MYSQL_SHUT}"
 }
 
 function mysql_client(){
