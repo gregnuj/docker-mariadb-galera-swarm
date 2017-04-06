@@ -56,10 +56,8 @@ fi
 
 # Attempt recovery if possible
 cmd=( "$*" )
-if [[ ! -z "$(cluster_position)" ]]; then
-    cmd+=( "--wsrep-start-position=$(cluster_position)" )
-elif [[ "$(cluster_primary)" == "$(node_address)" ]]; then
+if [[ -z "$(cluster_position)" && "$(cluster_primary)" == "$(node_address)" ]]; then
     cmd+=( "--wsrep-new-cluster" )
 fi
 
-exec "${command[*]}"
+exec "${cmd[*]}"
