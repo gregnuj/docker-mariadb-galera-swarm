@@ -53,7 +53,7 @@ function mysql_shutdown(){
     MYSQL_SHUT+=( "shutdown" )
     MYSQL_SHUT+=( "-u$(mysql_user root)" )
     MYSQL_SHUT+=( "-p$(mysql_password root)" )
-    "${MYSQL_SHUT}"
+    "${MYSQL_SHUT[@]}"
 }
 
 function mysql_client(){
