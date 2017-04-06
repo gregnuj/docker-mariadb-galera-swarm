@@ -24,7 +24,7 @@ if [ "${1:0:1}" = '-' ]; then
 fi
 
 # command is not mysqld 
-if [[ $1 != 'mysqld' ]]; then
+if [[ $1 != 'mysqld' && $1 != 'mysqld_safe' ]]; then
     exec "$@"
 fi
 
