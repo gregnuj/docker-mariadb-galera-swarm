@@ -60,4 +60,4 @@ if [[ -z "$(cluster_position)" && "$(cluster_primary)" == "$(node_address)" ]]; 
     cmd+=( "--wsrep-new-cluster" )
 fi
 
-exec "${cmd[*]}"
+exec ${cmd[*]}

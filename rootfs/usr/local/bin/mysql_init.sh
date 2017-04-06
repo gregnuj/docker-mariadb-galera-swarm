@@ -18,12 +18,11 @@ function mysql_init_start(){
 }
 
 function mysql_init_stop(){
-    if [[ ! -z $PID ]]; then
-        if ! kill -s TERM "$PID" || ! wait "$PID"; then
-            echo >&2 'MySQL init process failed.'
-            exit 1
-        fi
+    mysqlshut=( mysqladmin shutdown )
+    if [ ! -z "$MYSQLD_INIT_ROOT" ]; then
+        mysqlshut+=( "-p$(mysql_password root)" )
     fi
+    "${mysqlshut[@]}"
 }
 
 function mysql_init_client(){
