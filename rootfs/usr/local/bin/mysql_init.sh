@@ -18,7 +18,7 @@ function mysql_init_start(){
 }
 
 function mysql_init_stop(){
-    mysqlshut=( mysqladmin shutdown )
+    mysqlshut=( mysqladmin shutdown -uroot )
     if [ ! -z "$MYSQLD_INIT_ROOT" ]; then
         mysqlshut+=( "-p$(mysql_password root)" )
     fi
