@@ -5,6 +5,7 @@ services:
   data:
     image: gregnuj/mariadb-galera-swarm
     environment:
+      - DEBUG=1
       - MYSQL_ROOT_PASSWORD=dont_use_this
     networks:
       - data-net

@@ -55,11 +55,10 @@ if [[ ! -z "${CLUSTER_INIT}" ]]; then
 fi
 
 # Attempt recovery if possible
-command=( $@ )
 if [[ ! -z "$(cluster_position)" ]]; then
-    command+=( " --wsrep_start_position=$(cluster_position)" )
+    set -- "$@" --wsrep_start_position=$(cluster_position)
 elif [[ "$(cluster_primary)" == "$(node_address)" ]]; then
-    command+=( " --wsrep-new-cluster" )
+    set -- "$@" --wsrep-new-cluster
 fi
 
 exec "${command[@]}"
