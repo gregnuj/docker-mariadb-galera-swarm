@@ -15,7 +15,7 @@ fi
 
 # if command starts with an option, prepend mysqld
 if [[ "${1:0:1}" = '-' ]]; then
-    set -- mysqld "$@"
+    set -- mysqld_safe "$@"
 fi
 
 # if command starts with an option, prepend mysqld
@@ -55,10 +55,11 @@ if [[ ! -z "${CLUSTER_INIT}" ]]; then
 fi
 
 # Attempt recovery if possible
+cmd=( "$*" )
 if [[ ! -z "$(cluster_position)" ]]; then
-    set -- "$@" --wsrep_start_position=$(cluster_position)
+    cmd+=( "--wsrep-start-position=$(cluster_position)" )
 elif [[ "$(cluster_primary)" == "$(node_address)" ]]; then
-    set -- "$@" --wsrep-new-cluster
+    cmd+=( "--wsrep-new-cluster" )
 fi
 
-exec "${command[@]}"
+exec "${command[*]}"

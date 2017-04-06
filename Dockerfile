@@ -26,4 +26,4 @@ EXPOSE 3306 4444 4567 4568
 COPY rootfs/ /
 
 ENTRYPOINT ["/usr/local/bin/galera-entrypoint.sh"]
-CMD ["mysqld"]
+CMD ["mysqld_safe"]
