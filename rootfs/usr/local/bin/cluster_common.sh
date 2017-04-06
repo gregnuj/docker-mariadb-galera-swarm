@@ -146,7 +146,7 @@ function cluster_position(){
     GRASTATE_DAT="$(grastate_dat)"
     if [[ "$CLUSTER_UUID" == '00000000-0000-0000-0000-000000000000' ]]; then
         CLUSTER_POSITION=""
-    elif [[ "$CLUSTER_SEQNO" == "-1" ]]
+    elif [[ "$CLUSTER_SEQNO" == "-1" ]]; then
         CLUSTER_POSITION=""
     else
     	CLUSTER_POSITION="$(cluster_uuid):$(cluster_seqno)"
