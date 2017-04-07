@@ -13,6 +13,7 @@ RUN set -e \
     && rm -rf /var/lib/apt/lists/* \
     && chown -R mysql:mysql /etc/mysql \
     && chown -R mysql:mysql /var/lib/mysql \
+    && chown -R mysql:mysql /var/log/mysql \
     && rm -rf /docker-entrypoint* \
     && sed -ie 's/docker-entrypoint-initdb.d/etc\/initdb.d/' /usr/local/bin/docker-entrypoint.sh 
 
