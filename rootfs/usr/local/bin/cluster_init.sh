@@ -19,18 +19,7 @@ innodb-flush-log-at-trx-commit=2
 
 # Logs
 binlog_format=ROW
-log_bin                = /var/log/mysql/mariadb-bin
-log_bin_index          = /var/log/mysql/mariadb-bin.index
-# not fab for performance, but safer
-sync_binlog            = 1
-expire_logs_days       = 10
-max_binlog_size        = 100M
-# slaves
-relay_log              = /var/log/mysql/relay-bin
-relay_log_index        = /var/log/mysql/relay-bin.index
-relay_log_info_file    = /var/log/mysql/relay-bin.info
-log_slave_updates
-#read_only
+log_bin=binlog
 
 # Galera-related settings #
 [galera]
