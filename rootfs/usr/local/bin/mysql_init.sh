@@ -9,7 +9,7 @@ declare MYSQLD=( $@ )
 
 function mysql_init_install(){
     mkdir -p "$(mysql_datadir)"
-    mysql_install_db --datadir="$(mysql_datadir)" --rpm 
+    mysql_install_db --user=mysql --datadir="$(mysql_datadir)" --rpm 
 }
 
 function mysql_init_start(){
