@@ -33,19 +33,19 @@ wsrep-sst-auth=$(cluster_sst_auth)
 
 wsrep-provider=/usr/lib/galera/libgalera_smm.so
 wsrep-provider-options="debug=yes" 
-wsrep-provider-options="gcache.size=1G" 
-wsrep-provider-options="gcache.page_size=512M" 
-wsrep_provider_options="gcache.recover=yes"
-wsrep_provider_options="pc.npvo=TRUE"
-wsrep_provider_options="pc.wait_prim=TRUE"
-wsrep_provider_options="pc.wait_prim_timeout=PT300S"
-wsrep_provider_options="pc.weight=$(cluster_weight)"
+#wsrep-provider-options="gcache.size=1G" 
+#wsrep-provider-options="gcache.page_size=512M" 
+#wsrep_provider_options="gcache.recover=yes"
+#wsrep_provider_options="pc.npvo=TRUE"
+#wsrep_provider_options="pc.wait_prim=TRUE"
+#wsrep_provider_options="pc.wait_prim_timeout=PT300S"
+#wsrep_provider_options="pc.weight=$(cluster_weight)"
 
 EOF
 
 echo Created "$(cluster_cnf)"
 echo "-------------------------------------------------------------------------"
-grep -v "wsrep-sst-auth"  $(cluster_cnf)
+grep -v "#wsrep-sst-auth"  $(cluster_cnf)
 echo "-------------------------------------------------------------------------"
 
 
