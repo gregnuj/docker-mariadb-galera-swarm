@@ -19,7 +19,7 @@ innodb-flush-log-at-trx-commit=2
 
 # Logs
 binlog_format=ROW
-log_bin=binlog
+#log_bin=binlog
 
 # Galera-related settings #
 [galera]
