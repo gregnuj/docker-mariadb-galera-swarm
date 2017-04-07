@@ -53,7 +53,6 @@ fi
 cmd=( "$*" )
 if [[ -f "$(grastate_dat)" ]]; then
     mysqld ${cmd[@]:1} --wsrep-recover
-    mysql_shutdown
 elif [[ "$(cluster_primary)" == "$(node_address)" ]]; then
     mysqld ${cmd[@]:1} --wsrep-new-cluster
     mysql_shutdown
