@@ -6,7 +6,7 @@ source cluster_common.sh
 
 cat <<-EOF > "$(cluster_cnf)" 
 [mysqld]
-skip_name_resolve
+#skip_name_resolve
 
 # InnoDB
 default_storage_engine = InnoDB
@@ -14,6 +14,7 @@ innodb-doublewrite=1
 innodb_file_per_table=1
 innodb_autoinc_lock_mode=2
 innodb-flush-log-at-trx-commit=2 
+innodb_log_file_size=48M
 #auto_increment_increment = 2
 #auto_increment_offset  = 1
 
