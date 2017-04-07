@@ -15,11 +15,6 @@ fi
 
 # if command starts with an option, prepend mysqld
 if [[ "${1:0:1}" = '-' ]]; then
-    set -- mysqld_safe "$@"
-fi
-
-# if command starts with an option, prepend mysqld
-if [ "${1:0:1}" = '-' ]; then
     set -- mysqld "$@"
 fi
 
@@ -57,10 +52,10 @@ fi
 # Attempt recovery if possible
 cmd=( "$*" )
 if [[ -f "$(grastate_dat)" ]]; then
-    mysqld_safe ${cmd[@]:1} --wsrep-recover
+    mysqld ${cmd[@]:1} --wsrep-recover
     mysql_shutdown
 elif [[ "$(cluster_primary)" == "$(node_address)" ]]; then
-    mysqld_safe ${cmd[@]:1} --wsrep-new-cluster
+    mysqld ${cmd[@]:1} --wsrep-new-cluster
     mysql_shutdown
 fi
 
