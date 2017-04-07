@@ -8,12 +8,11 @@ RUN set -e \
     && apt-get install -y \
     --no-install-recommends \
     --no-install-suggests \
-    vim dnsutils \
+    vim dnsutils rsync \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* \
     && chown -R mysql:mysql /etc/mysql \
     && chown -R mysql:mysql /var/lib/mysql \
-    && chown -R mysql:mysql /var/log/mysql \
     && rm -rf /docker-entrypoint* \
     && sed -ie 's/docker-entrypoint-initdb.d/etc\/initdb.d/' /usr/local/bin/docker-entrypoint.sh 
 
