@@ -35,7 +35,7 @@ log_slave_updates
 # Galera-related settings #
 [galera]
 wsrep_on=ON
-wsrep-node-name=$(service_hostname)
+#wsrep-node-name=$(service_hostname)
 wsrep_node_address=$(node_address)
 wsrep-cluster-name=$(cluster_name)
 wsrep-cluster-address=gcomm://$(cluster_members)
