@@ -65,7 +65,7 @@ function wsrep_password(){
 function cluster_sst_auth(){
     WSREP_USER="$(wsrep_user)"
     WSREP_PASSWORD="$(wsrep_password)"
-    echo "${USER}:${PASSWORD}"
+    echo "${WSREP_USER}:${WSREP_PASSWORD}"
 }
 
 
