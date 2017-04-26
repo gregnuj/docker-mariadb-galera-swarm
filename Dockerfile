@@ -8,7 +8,7 @@ RUN set -e \
     && apt-get install -y \
     --no-install-recommends \
     --no-install-suggests \
-    vim dnsutils rsync \
+    vim dnsutils netcat rsync \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* \
     && chown -R mysql:mysql /etc/mysql \
