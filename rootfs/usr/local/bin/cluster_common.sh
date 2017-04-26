@@ -115,6 +115,15 @@ function cluster_primary(){
     echo "${CLUSTER_PRIMARY}"
 }
 
+# This is primary
+function is_cluster_primary(){
+    if [[ "$(cluster_primary)" == "$(node_address)" ]]; then
+        echo "true"
+    else
+        echo ""
+    fi
+}
+
 # Defaults 
 function cluster_weight(){
     CLUSTER_WEIGHT=$(echo "$(cluster_members)" | tr ',' '\n' | sort -r | awk "/$(node_address)/ {print FNR}")

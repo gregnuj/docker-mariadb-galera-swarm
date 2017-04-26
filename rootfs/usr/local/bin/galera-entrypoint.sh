@@ -7,6 +7,7 @@ shopt -s nullglob
 source "cluster_common.sh"
 
 declare WANTHELP=$(echo "$@" | grep '\(-?\|--help\|--print-defaults\|-V\|--version\)')
+declare -a cmd=( "$*" )
 
 # Set 'DEBUG=1' environment variable to see detailed output for debugging
 if [[ -n "$DEBUG" ]]; then
@@ -33,27 +34,33 @@ if [[ "$(id -u)" = '0' ]]; then
     exec gosu mysql "$BASH_SOURCE" "$@"
 fi
 
-# Configure mysql if needed
+# Set env MYSQLD_INIT to trigger setup 
 if [[ ! -d "$(mysql_datadir)/mysql" ]]; then
     MYSQLD_INIT=${MYSQLD_INIT:=1}
 fi
+
+# Configure database if MYSQLD_INIT is set
 if [[ ! -z "${MYSQLD_INIT}" ]]; then
     source "mysql_init.sh"
 fi
 
-# Configure galera unless config exists
+# Set env to trigger creation of galera.cnf
 if [[ ! -f "$(cluster_cnf)" ]]; then
     CLUSTER_INIT=${CLUSTER_INIT:=1}
 fi
+
+# create galera.cnf
 if [[ ! -z "${CLUSTER_INIT}" ]]; then
     source "cluster_init.sh"
 fi
 
 # Attempt recovery if possible
-cmd=( "$*" )
 if [[ -f "$(grastate_dat)" ]]; then
     mysqld ${cmd[@]:1} --wsrep-recover
-elif [[ "$(cluster_primary)" == "$(node_address)" ]]; then
+fi
+
+# 
+if [[ ! -z "$(is_cluster_primary)" ]]; then
     mysqld ${cmd[@]:1} --wsrep-new-cluster
     mysql_shutdown
 fi
