@@ -87,7 +87,7 @@ function cluster_members(){
        # After 90 seconds reduce SERVICE_ADDRESS_MINIMUM
        if [[ $SLEEPS -ge 30 ]]; then
           SLEEPS=0
-          CLUSTER_MINIMUM=$((CLUSTER_MINIMUM - 1))
+          export CLUSTER_MINIMUM=$((CLUSTER_MINIMUM - 1))
           echo "Reducing CLUSTER_MINIMUM to $CLUSTER_MINIMUM" >&2
        fi
        if [[ $CLUSTER_MINIMUM -lt 2 ]]; then

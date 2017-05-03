@@ -64,7 +64,7 @@ if [[ ! -z "$(is_cluster_primary)" ]]; then
     mysqld ${cmd[@]:1} --wsrep-new-cluster
     mysql_shutdown
 else
-    nc -z -w 300 "$(cluster_primary) 4567"
+    nc -z -w 300 "$(cluster_primary)" 4567
 fi
 
 exec ${cmd[*]}
