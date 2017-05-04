@@ -39,10 +39,17 @@ function cluster_minimum(){
     echo $((CLUSTER_MINIMUM))
 }
 
+# Defaults to 4567
+function cluster_port(){
+    CLUSTER_PORT="${CLUSTER_PORT:="4567"}"
+    echo "${CLUSTER_PORT}"
+}
+
 # Built from cluster members
 function cluster_address(){
-    CLUSTER_ADDRESS="${CLUSTER_ADDRESS:="gcomm://$(cluster_members)"}"
-    echo "${CLUSTER_ADDRES}"
+    CLUSTER_PORT=$(cluster_port)
+    CLUSTER_ADDRESS="${CLUSTER_ADDRESS:="$(echo "$(cluster_members)" | sed -e 's/^/gcomm:\/\//' -e "s/,/:${CLUSTER_PORT},/g" -e "s/$/${CLUSTER_PORT}/")"}"
+    echo "${CLUSTER_ADDRESS}"
 }
 
 #
