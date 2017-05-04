@@ -117,14 +117,14 @@ function cluster_mem_names(){
 # Defaults to lowest ip in Cluster members
 function cluster_primary(){
     if [[ -z "${CLUSTER_PRIMARY}" ]]; then
-        CLUSTER_PRIMARY=$(echo "$(cluster_members)" | tr ',' '\n' | sort -r | tail -n 1)
+        CLUSTER_PRIMARY=$(echo "$(cluster_members)" | cut -d ',' -f 1 )
     fi
     echo "${CLUSTER_PRIMARY}"
 }
 
 # This is primary
 function is_cluster_primary(){
-    if [[ "$(cluster_primary)" == "$(node_address)" ]]; then
+    if [[ "$(cluster_primary)" == $(node_address) ]]; then
         echo "true"
     else
         echo ""
@@ -133,7 +133,7 @@ function is_cluster_primary(){
 
 # Defaults 
 function cluster_weight(){
-    CLUSTER_WEIGHT=$(echo "$(cluster_members)" | tr ',' '\n' | sort -r | awk "/$(node_address)/ {print FNR}")
+    CLUSTER_WEIGHT=$(echo "$(cluster_members)" | awk -v "RS=," "/$(node_address)/ {print FNR}")
     echo $((CLUSTER_WEIGHT % 255))
 }
 
