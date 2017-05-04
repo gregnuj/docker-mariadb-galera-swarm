@@ -62,9 +62,6 @@ The path to the secret file may be provided in environment variables:
 - `MYSQL_ROOT_PASSWORD_FILE` (optional)
 - `MYSQL_PASSWORD_FILE` (optional)
 
-#### Automatic integration with [Docker Swarm's secret support](https://docs.docker.com/engine/swarm/secrets/)
-
-Note: manually setting any of these values via ENV overides the use of the secret files.
 
 ### Credit
  - ["toughIQ/docker-mariadb-cluster"](https://github.com/toughIQ/docker-mariadb-cluster) 
