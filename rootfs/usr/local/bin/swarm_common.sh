@@ -53,7 +53,7 @@ function container_name(){
 }
 
 function service_members(){
-    SERVICE_MEMBERS="$(getent hosts tasks.$(service_name) | sort | awk -v ORS=',' '{print $1}')"
+    SERVICE_MEMBERS="$(getent hosts tasks.$(service_name) | sort -nt '.' -k 4 | awk -v ORS=',' '{print $1}')"
     echo "${SERVICE_MEMBERS%%,}" # strip trailing commas
 }
 
