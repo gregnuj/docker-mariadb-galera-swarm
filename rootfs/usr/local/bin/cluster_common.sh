@@ -97,9 +97,9 @@ function cluster_members(){
           export CLUSTER_MINIMUM=$((CLUSTER_MINIMUM - 1))
           echo "Reducing CLUSTER_MINIMUM to $CLUSTER_MINIMUM" >&2
        fi
-       if [[ $CLUSTER_MINIMUM -lt 2 ]]; then
+       if [[ $CLUSTER_MINIMUM -lt 1 ]]; then
           echo "CLUSTER_MINIMUM is $CLUSTER_MINIMUM cannot continue" >&2
-          exit 1
+          return 1
        fi
     done
     echo "${CLUSTER_MEMBERS}"
