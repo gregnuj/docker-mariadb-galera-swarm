@@ -48,7 +48,7 @@ function cluster_port(){
 # Built from cluster members
 function cluster_address(){
     CLUSTER_PORT=$(cluster_port)
-    CLUSTER_ADDRESS="${CLUSTER_ADDRESS:="$(echo "$(cluster_members)" | sed -e 's/^/gcomm:\/\//' -e "s/,/:${CLUSTER_PORT},/g" -e "s/$/${CLUSTER_PORT}/")"}"
+    CLUSTER_ADDRESS="${CLUSTER_ADDRESS:="$(echo "$(cluster_members)" | sed -e 's/^/gcomm:\/\//' -e "s/,/:${CLUSTER_PORT},/g" -e "s/$/:${CLUSTER_PORT}/")"}"
     echo "${CLUSTER_ADDRESS}"
 }
 
