@@ -20,7 +20,7 @@ innodb_log_file_size=48M
 
 # Logs
 binlog_format=ROW
-#log_bin=binlog
+log_bin=binlog
 
 # Galera-related settings #
 [galera]
