@@ -28,7 +28,7 @@ wsrep_on=ON
 wsrep-node-name=$(fqdn)
 wsrep_node_address=$(node_address)
 wsrep-cluster-name=$(cluster_name)
-wsrep-cluster-address=gcomm://$(cluster_members)
+wsrep-cluster-address=$(cluster_address)
 wsrep_sst_method=$(cluster_sst_method)
 wsrep-sst-auth=$(cluster_sst_auth)
 
