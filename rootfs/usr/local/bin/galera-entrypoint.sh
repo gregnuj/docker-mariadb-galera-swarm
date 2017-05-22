@@ -60,7 +60,8 @@ if [[ -f "$(grastate_dat)" ]]; then
 elif [[ ! -z "$(is_cluster_primary)" ]]; then
     galera_new_cluster 
 else
-    pc="$(nc -z -w 120 "$(service_name)" 4567)"
+    # 2 minute sleep if no pc found
+    pc="$(nc -z -w 120 "$(service_name)" -p 4567)"
 fi
 
 exec ${cmd[*]}
