@@ -61,7 +61,7 @@ elif [[ ! -z "$(is_cluster_primary)" ]]; then
     galera_new_cluster 
 else
     # 2 minute sleep if no pc found
-    pc="$(nc -z -w 120 "$(service_name)" -p 4567)"
+    nc -z -w 120 "$(service_name)" 4567 || :
 fi
 
 exec ${cmd[*]}
