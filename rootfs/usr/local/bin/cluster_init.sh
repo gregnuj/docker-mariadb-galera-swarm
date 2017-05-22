@@ -19,13 +19,15 @@ innodb_log_file_size=48M
 #auto_increment_offset  = 1
 
 # Logs
-binlog_format=ROW
-log_bin=binlog
+log-bin=/var/lib/mysql/mysql-bin
+expire-logs-days=2
+sync-binlog=1
+binlog-format=row
 
 # Galera-related settings #
 [galera]
 wsrep_on=ON
-wsrep-node-name=$(fqdn)
+#wsrep-node-name=$(fqdn)
 wsrep_node_address=$(node_address)
 wsrep-cluster-name=$(cluster_name)
 wsrep-cluster-address=$(cluster_address)
@@ -41,7 +43,7 @@ wsrep_provider_options="gcache.recover=yes"
 wsrep_provider_options="pc.recovery=true"
 wsrep_provider_options="pc.wait_prim=true"
 wsrep_provider_options="pc.wait_prim_timeout=PT300S"
-wsrep_provider_options="pc.weight=$(cluster_weight)"
+#wsrep_provider_options="pc.weight=$(cluster_weight)"
 
 EOF
 
@@ -49,5 +51,4 @@ echo Created "$(cluster_cnf)"
 echo "-------------------------------------------------------------------------"
 grep -v "wsrep-sst-auth"  $(cluster_cnf)
 echo "-------------------------------------------------------------------------"
-
 

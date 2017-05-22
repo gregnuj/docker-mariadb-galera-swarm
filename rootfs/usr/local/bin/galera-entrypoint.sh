@@ -57,14 +57,10 @@ fi
 # Attempt recovery if possible
 if [[ -f "$(grastate_dat)" ]]; then
     mysqld ${cmd[@]:1} --wsrep-recover
+elif [[ ! -z "$(is_cluster_primary)" ]]; then
+    galera_new_cluster 
+else
+    pc="$(nc -z -w 120 "$(service_name)" 4567)"
 fi
-
-# 
-#if [[ ! -z "$(is_cluster_primary)" ]]; then
-#    mysqld ${cmd[@]:1} --wsrep-new-cluster
-#    mysql_shutdown
-#else
-#    nc -z -w 300 "$(cluster_primary)" 4567
-#fi
 
 exec ${cmd[*]}
