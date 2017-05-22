@@ -19,7 +19,7 @@ innodb_log_file_size=48M
 #auto_increment_offset  = 1
 
 # Logs
-log-bin=binlog
+log-bin=mysql-bin
 expire-logs-days=2
 sync-binlog=1
 binlog-format=row
