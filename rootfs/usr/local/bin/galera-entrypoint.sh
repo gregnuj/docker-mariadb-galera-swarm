@@ -58,10 +58,10 @@ fi
 if [[ -f "$(grastate_dat)" ]]; then
     mysqld ${cmd[@]:1} --wsrep-recover
 elif [[ ! -z "$(is_cluster_primary)" ]]; then
-    cmd+=("--wsrep-new-cluster")
+    mysqld ${cmd[@]:1} --wsrep-new-cluster
+    mysql_shutdown
 fi 
 
 exec ${cmd[*]} 2>&1 & wait $! || true
 echo "mysqld stopped"
-sleep 90
 
