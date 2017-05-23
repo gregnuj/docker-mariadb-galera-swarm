@@ -8,7 +8,8 @@ RUN set -e \
     && apt-get install -y \
     --no-install-recommends \
     --no-install-suggests \
-    vim dnsutils netcat rsync \
+    vim dnsutils netcat rsync tar \
+    curl pigz percona-toolkit pv \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* \
     && chown -R mysql:mysql /etc/mysql \
@@ -21,7 +22,7 @@ RUN set -e \
 # 4444: for State Snapshot Transfers
 # 4567: Galera Cluster Replication
 # 4568: Incremental State Transfer
-EXPOSE 3306 4444 4567 4568 
+EXPOSE 3306 4444 4567 4567/udp 4568
 
 COPY rootfs/ /
 

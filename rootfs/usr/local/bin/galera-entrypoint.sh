@@ -60,8 +60,11 @@ if [[ -f "$(grastate_dat)" ]]; then
 fi
 
 if [[ ! -z "$(is_cluster_primary)" ]]; then
-    exec ${cmd[*]} --wsrep-new-cluster
-else
-    exec ${cmd[*]}
-fi
+declare -a cmd=( "$*" )
+    cmd+=("--wsrep-new-cluster")
+fi 
+
+exec ${cmd[*]} "$@" 2>&1 & wait $! || true
+echo "mysqld stopped"
+sleep 900
 
