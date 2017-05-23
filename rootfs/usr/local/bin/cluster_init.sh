@@ -48,6 +48,7 @@ wsrep_provider_options="pc.wait_prim_timeout=PT300S"
 EOF
 
 cat <<-EOF > "$(cluster_cnf)" 
+[mysqld]
 wsrep_provider=/usr/lib/libgalera_smm.so
 
 wsrep-cluster-name=$(cluster_name)
