@@ -58,8 +58,7 @@ fi
 if [[ -f "$(grastate_dat)" ]]; then
     mysqld ${cmd[@]:1} --wsrep-recover
 elif [[ ! -z "$(is_cluster_primary)" ]]; then
-    mysqld ${cmd[@]:1} --wsrep-new-cluster
-    mysql_shutdown
+    exec mysqld ${cmd[@]:1} --wsrep-new-cluster
 else
     # 2 minute sleep if no pc found
     nc -z -w 120 "$(service_name)" 4567 || :
