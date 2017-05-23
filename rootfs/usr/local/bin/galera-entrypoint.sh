@@ -57,7 +57,7 @@ fi
 # Attempt recovery if possible
 if [[ -f "$(grastate_dat)" ]]; then
     mysqld ${cmd[@]:1} --wsrep-recover
-elif[[ ! -z "$(is_cluster_primary)" ]]; then
+elif [[ ! -z "$(is_cluster_primary)" ]]; then
     cmd+=("--wsrep-new-cluster")
 fi 
 
