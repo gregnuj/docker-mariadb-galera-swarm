@@ -38,7 +38,7 @@ function mysql_password(){
     fi
 
     if [[ -r "$PASSWORD" ]]; then
-        PASSWORD="$(cat "$PASSWORD")"        
+        PASSWORD="$(cat "$PASSWORD")"
     elif [[ -z "$PASSWORD" && -r "/var/run/secrets/$USER" ]]; then
         PASSWORD="$(cat "/var/run/secrets/${USER}")"
     elif [[ -z "$PASSWORD" ]]; then
