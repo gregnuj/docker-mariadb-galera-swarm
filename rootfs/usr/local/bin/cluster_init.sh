@@ -19,7 +19,7 @@ innodb_autoinc_lock_mode=2
 #auto_increment_offset  = 1
 
 # Logs
-#log-bin=mysql-bin
+rlog-bin=mysql-bin
 #expire-logs-days=2
 sync-binlog=1
 binlog-format=row
@@ -60,8 +60,7 @@ wsrep_node_address=$(node_address)
 wsrep_sst_method=$(cluster_sst_method)
 wsrep-sst-auth=$(cluster_sst_auth)
 
-pxc_strict_mode=ENFORCING
-
+log-bin=binlog
 binlog_format=ROW
 default_storage_engine=InnoDB
 innodb_autoinc_lock_mode=2
