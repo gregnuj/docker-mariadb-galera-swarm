@@ -64,7 +64,7 @@ declare -a cmd=( "$*" )
     cmd+=("--wsrep-new-cluster")
 fi 
 
-exec ${cmd[*]} "$@" 2>&1 & wait $! || true
+exec ${cmd[*]} 2>&1 & wait $! || true
 echo "mysqld stopped"
 sleep 900
 
