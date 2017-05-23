@@ -37,7 +37,7 @@ wsrep_sst_method=$(cluster_sst_method)
 wsrep-sst-auth=$(cluster_sst_auth)
 
 wsrep-provider=/usr/lib/galera/libgalera_smm.so
-#wsrep-provider-options="debug=yes" 
+wsrep-provider-options="debug=yes" 
 wsrep-provider-options="gcache.size=1G" 
 wsrep-provider-options="gcache.page_size=512M" 
 wsrep_provider_options="gcache.recover=yes"
