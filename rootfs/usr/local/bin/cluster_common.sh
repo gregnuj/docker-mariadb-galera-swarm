@@ -48,8 +48,7 @@ function cluster_port(){
 # Built from cluster members
 function cluster_address(){
     CLUSTER_PORT=$(cluster_port)
-    #CLUSTER_ADDRESS="${CLUSTER_ADDRESS:="$(echo "$(cluster_members)" | sed -e 's/^/gcomm:\/\//' -e "s/,/:${CLUSTER_PORT},/g" -e "s/$/:${CLUSTER_PORT}/")"}"
-    CLUSTER_ADDRESS="gcomm://${SERVICE_NAME}:4567"
+    CLUSTER_ADDRESS="${CLUSTER_ADDRESS:="$(echo "$(cluster_members)" | sed -e 's/^/gcomm:\/\//' -e "s/,/:${CLUSTER_PORT},/g" -e "s/$/:${CLUSTER_PORT}/")"}"
     echo "${CLUSTER_ADDRESS}"
 }
 
@@ -99,8 +98,8 @@ function cluster_members(){
           echo "Reducing CLUSTER_MINIMUM to $CLUSTER_MINIMUM" >&2
        fi
        if [[ $CLUSTER_MINIMUM -lt 1 ]]; then
-          echo "CLUSTER_MINIMUM is $CLUSTER_MINIMUM cannot continue" >&2
-          return 1
+          echo "Something is wrong using service name as members"
+	  CLUSTER_MEMBERS="${SERVICE_NAME}"
        fi
     done
     echo "${CLUSTER_MEMBERS}"
