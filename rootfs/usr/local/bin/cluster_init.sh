@@ -19,7 +19,7 @@ innodb_autoinc_lock_mode=2
 #auto_increment_offset  = 1
 
 # Logs
-log-bin=mysql-bin
+log-bin=binlog
 #expire-logs-days=2
 #sync-binlog=1
 binlog-format=row
