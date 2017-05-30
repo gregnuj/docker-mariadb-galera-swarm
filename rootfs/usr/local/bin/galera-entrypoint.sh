@@ -61,12 +61,12 @@ fi
 
 interval=0
 while true ; do
-    exec ${cmd[*]} 2>&1 & wait $! || true
-    echo "exited with code $?;"
+    lcmd=( "${cmd[*]}" )
+    if [[ $(is_cluster_primary) ]]; then
+       lcmd+=( "--wsrep-new-cluster" )
+    fi
+    ${lcmd[*]} 2>&1 & pid=$! || true
     interval=$((interval + 10))
-    echo "sleeping for $interval seconds"
+    echo "${cmd[@]:0} failed, sleeping for $interval seconds"
     sleep $interval
 done
-
-#exec ${cmd[*]}
-
