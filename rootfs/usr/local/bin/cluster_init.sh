@@ -40,12 +40,12 @@ wsrep-provider=/usr/lib/galera/libgalera_smm.so
 wsrep-provider-options="debug=yes" 
 wsrep-provider-options="gcache.size=1G" 
 wsrep-provider-options="gcache.page_size=512M" 
-wsrep_provider_options="gcache.recover=yes"
-wsrep_provider_options="pc.recovery=true"
-wsrep_provider_options="pc.npvo=true"
-wsrep_provider_options="pc.wait_prim=true"
-wsrep_provider_options="pc.wait_prim_timeout=PT300S"
-wsrep_provider_options="pc.weight=$(cluster_weight)"
+#wsrep_provider_options="gcache.recover=yes"
+#wsrep_provider_options="pc.recovery=true"
+#wsrep_provider_options="pc.npvo=true"
+#wsrep_provider_options="pc.wait_prim=true"
+#wsrep_provider_options="pc.wait_prim_timeout=PT300S"
+#wsrep_provider_options="pc.weight=$(cluster_weight)"
 
 [sst]
 streamfmt=xbstream
