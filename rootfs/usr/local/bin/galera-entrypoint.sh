@@ -55,9 +55,9 @@ if [[ ! -z "${CLUSTER_INIT}" ]]; then
 fi
 
 # Attempt recovery if possible
-#if [[ -f "$(grastate_dat)" ]]; then
-#    mysqld ${cmd[@]:1} --wsrep-recover
-#fi 
+if [[ "$(cluster_position)" ]]; then
+    mysqld ${cmd[@]:1} --wsrep-recover
+fi 
 
 #${cmd[*]} 2>&1 & wait $! || true
 #echo "mysqld stopped"
