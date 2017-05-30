@@ -65,7 +65,7 @@ while true ; do
     if [[ $(is_cluster_primary) && $interval -eq 0  ]]; then
         lcmd+=( " --wsrep-new-cluster" )
     fi
-    ${lcmd[*]} 2>&1 & wait $! || true
+    exec ${lcmd[*]} 2>&1 & wait $! || true
     interval=$((interval + 10))
     echo "${cmd[@]:0} failed, sleeping for $interval seconds"
     if [[ $interval -ge 1500 ]]; then
