@@ -62,8 +62,8 @@ fi
 interval=0
 while true ; do
     exec ${cmd[*]} 2>&1 & wait $! || true
-    interval=$((interval + 10))
     echo "exited with code $?;"
+    interval=$((interval + 10))
     echo "sleeping for $interval seconds"
     sleep $interval
 done
