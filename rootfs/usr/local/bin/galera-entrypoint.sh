@@ -59,7 +59,14 @@ if [[ "$(cluster_position)" ]]; then
     mysqld ${cmd[@]:1} --wsrep-recover
 fi 
 
-#${cmd[*]} 2>&1 & wait $! || true
-#echo "mysqld stopped"
-exec ${cmd[*]}
+interval=0
+while 1; do
+    ${cmd[*]} 2>&1 & wait $! || true
+    interval=$((interval + 10))
+    echo "exited with code $?;"
+    echo "sleeping for $interval seconds"
+    sleep $interval
+done
+
+#exec ${cmd[*]}
 
