@@ -61,7 +61,7 @@ fi
 
 interval=0
 while true ; do
-    lcmd=( "${cmd[*]}" )
+    lcmd=( ${cmd[*]} )
     if [[ $(is_cluster_primary) && $interval -eq 0  ]]; then
         lcmd+=( " --wsrep-new-cluster" )
     fi
