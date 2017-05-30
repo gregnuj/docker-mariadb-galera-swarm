@@ -63,7 +63,7 @@ interval=0
 while true ; do
     lcmd=( "${cmd[*]}" )
     if [[ $(is_cluster_primary) && $interval -eq 0  ]]; then
-        lcmd+=( "--wsrep-new-cluster" )
+        lcmd+=( " --wsrep-new-cluster" )
     fi
     ${lcmd[*]} 2>&1 & wait $! || true
     interval=$((interval + 10))
