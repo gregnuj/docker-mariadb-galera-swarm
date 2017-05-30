@@ -55,18 +55,23 @@ if [[ ! -z "${CLUSTER_INIT}" ]]; then
 fi
 
 # Attempt recovery if possible
-if [[ "$(cluster_position)" ]]; then
+if [[ -f "$(grastate_dat)" ]]; then
     mysqld ${cmd[@]:1} --wsrep-recover
-fi 
+fi
 
 interval=0
 while true ; do
     lcmd=( "${cmd[*]}" )
-    if [[ $(is_cluster_primary) ]]; then
-       lcmd+=( "--wsrep-new-cluster" )
+    if [[ $(is_cluster_primary) && $interval -eq 0  ]]; then
+        lcmd+=( "--wsrep-new-cluster" )
     fi
-    ${lcmd[*]} 2>&1 & pid=$! || true
+    ${lcmd[*]} 2>&1 & wait $! || true
     interval=$((interval + 10))
     echo "${cmd[@]:0} failed, sleeping for $interval seconds"
-    sleep $interval
+    if [[ $interval <= 1500 ]]; then
+        sleep $interval
+    else
+        break
+    fi
 done
+
