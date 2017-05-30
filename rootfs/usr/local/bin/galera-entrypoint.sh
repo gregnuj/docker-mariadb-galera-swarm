@@ -60,7 +60,7 @@ if [[ "$(cluster_position)" ]]; then
 fi 
 
 interval=0
-while 1; do
+while true ; do
     exec ${cmd[*]} 2>&1 & wait $! || true
     interval=$((interval + 10))
     echo "exited with code $?;"
