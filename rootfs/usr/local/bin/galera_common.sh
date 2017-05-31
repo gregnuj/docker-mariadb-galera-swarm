@@ -87,8 +87,10 @@ function wsrep_pc_address(){
 # Defaults 
 function wsrep_pc_weight(){
     if [[ -z "${WSREP_PC_WEIGHT}" ]]; then
-        IP_FORTH_OCTET=$(echo "$(wsrep_cluster_members)" | awk -v "RS=," "/$(wsrep_node_address)/ {print FNR}")
-        WSREP_PC_WEIGHT="$((IP_FORTH_OCTET % 255))"
+        #IP_FORTH_OCTET=$(echo "$(wsrep_cluster_members)" | awk -v "RS=," "/$(wsrep_node_address)/ {print FNR}")
+        #WSREP_PC_WEIGHT="$((IP_FORTH_OCTET % 255))"
+        #WSREP_PC_WEIGHT="$((255 - WSREP_PC_WEIGHT))"
+        WSREP_PC_WEIGHT=0
     fi
     echo "$WSREP_PC_WEIGHT"
 }
