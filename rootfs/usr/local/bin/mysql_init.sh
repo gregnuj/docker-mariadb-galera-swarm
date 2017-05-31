@@ -4,7 +4,7 @@
 [[ -z "$DEBUG" ]] || set -x
 
 source mysql_common.sh
-source cluster_common.sh
+source galera_common.sh
 declare MYSQLD=( $@ )
 
 function mysql_init_install(){
@@ -82,14 +82,14 @@ function mysql_init_user(){
 
 function mysql_init_wsrep(){
     mysql=( $(mysql_client) );
-    WSREP_USER="${WSREP_USER:="$(wsrep_user)"}"
-    WSREP_PASSWORD="${WSREP_PASSWORD:="$(mysql_password $WSREPL_USER)"}"
-    echo "CREATE USER IF NOT EXISTS '${WSREP_USER}'@'127.0.0.1' IDENTIFIED BY '${WSREP_PASSWORD}';" | "${mysql[@]}"
-    echo "GRANT RELOAD,LOCK TABLES,REPLICATION CLIENT ON *.* TO '${WSREP_USER}'@'127.0.0.1';"    | "${mysql[@]}"
-    echo "CREATE USER IF NOT EXISTS '${WSREP_USER}'@'localhost' IDENTIFIED BY '${WSREP_PASSWORD}';" | "${mysql[@]}"
-    echo "GRANT RELOAD,LOCK TABLES,REPLICATION CLIENT ON *.* TO '${WSREP_USER}'@'localhost';"    | "${mysql[@]}"
+    WSREP_SST_USER="${WSREP_SST_USER:="$(wsrep_sst_user)"}"
+    WSREP_SST_PASWORD="${WSREP_SST_PASWORD:="$(mysql_password $WSREP_SST_USER)"}"
+    echo "CREATE USER IF NOT EXISTS '${WSREP_SST_USER}'@'127.0.0.1' IDENTIFIED BY '${WSREP_SST_PASWORD}';" | "${mysql[@]}"
+    echo "GRANT RELOAD,LOCK TABLES,REPLICATION CLIENT ON *.* TO '${WSREP_SST_USER}'@'127.0.0.1';"    | "${mysql[@]}"
+    echo "CREATE USER IF NOT EXISTS '${WSREP_SST_USER}'@'localhost' IDENTIFIED BY '${WSREP_SST_PASWORD}';" | "${mysql[@]}"
+    echo "GRANT RELOAD,LOCK TABLES,REPLICATION CLIENT ON *.* TO '${WSREP_SST_USER}'@'localhost';"    | "${mysql[@]}"
     echo 'FLUSH PRIVILEGES ;' | "${mysql[@]}"
-    echo "Created user $WSREP_USER"
+    echo "Created user $WSREP_SST_USER"
 }
 
 function mysql_init_scripts(){

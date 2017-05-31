@@ -4,7 +4,7 @@
 set -eo pipefail
 shopt -s nullglob
 
-source "cluster_common.sh"
+source "galera_common.sh"
 
 declare WANTHELP=$(echo "$@" | grep '\(-?\|--help\|--print-defaults\|-V\|--version\)')
 declare -a cmd=( "$*" )
@@ -45,13 +45,13 @@ if [[ ! -z "${MYSQLD_INIT}" ]]; then
 fi
 
 # Set env to trigger creation of galera.cnf
-if [[ ! -f "$(cluster_cnf)" ]]; then
-    CLUSTER_INIT=${CLUSTER_INIT:=1}
+if [[ ! -f "$(galera_cnf)" ]]; then
+    GALERA_INIT=${GALERA_INIT:=1}
 fi
 
 # create galera.cnf
-if [[ ! -z "${CLUSTER_INIT}" ]]; then
-    source "cluster_init.sh"
+if [[ ! -z "${GALERA_INIT}" ]]; then
+    source "galera_init.sh"
 fi
 
 # Attempt recovery if possible
@@ -62,7 +62,7 @@ fi
 interval=0
 while true ; do
     lcmd=( ${cmd[*]} )
-    if [[ $(is_cluster_primary) && $interval -eq 0 ]]; then
+    if [[ $(is_primary_component) && $interval -eq 0 ]]; then
         lcmd+=( " --wsrep-new-cluster" )
     fi
     exec ${lcmd[*]} 2>&1 & wait $! || true

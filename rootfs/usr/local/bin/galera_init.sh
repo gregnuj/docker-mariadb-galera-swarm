@@ -2,9 +2,9 @@
 
 [[ -z "$DEBUG" ]] || set -x
 
-source cluster_common.sh
+source galera_common.sh
 
-cat <<-EOF > "$(cluster_cnf)" 
+cat <<-EOF > "$(galera_cnf)" 
 [mysqld]
 log-error=/dev/stderr
 skip_name_resolve
@@ -28,13 +28,13 @@ binlog-format=row
 # Galera-related settings #
 [galera]
 wsrep_on=ON
-#wsrep-node-name=$(fqdn)
-wsrep_node_address=$(node_address)
-wsrep-cluster-name=$(cluster_name)
-wsrep-cluster-address=$(cluster_address)
+#wsrep-node-name=$(wsrep_node_name)
+wsrep_node_address=$(wsrep_node_address)
+wsrep-cluster-name=$(wsrep_cluster_name)
+wsrep-cluster-address=$(wsrep_cluster_address)
 
-wsrep_sst_method=$(cluster_sst_method)
-wsrep-sst-auth=$(cluster_sst_auth)
+wsrep_sst_method=$(wsrep_sst_method)
+wsrep-sst-auth=$(wsrep_sst_auth)
 
 wsrep-provider=/usr/lib/galera/libgalera_smm.so
 wsrep-provider-options="debug=yes" 
@@ -45,15 +45,15 @@ wsrep_provider_options="pc.recovery=true"
 wsrep_provider_options="pc.npvo=true"
 wsrep_provider_options="pc.wait_prim=true"
 wsrep_provider_options="pc.wait_prim_timeout=PT300S"
-wsrep_provider_options="pc.weight=$(cluster_weight)"
+wsrep_provider_options="pc.weight=$(wsrep_pc_weight)"
 
 [sst]
 streamfmt=xbstream
 
 EOF
 
-echo Created "$(cluster_cnf)"
+echo Created "$(galera_cnf)"
 echo "-------------------------------------------------------------------------"
-grep -v "wsrep-sst-auth"  $(cluster_cnf)
+grep -v "wsrep-sst-auth"  $(galera_cnf)
 echo "-------------------------------------------------------------------------"
 
