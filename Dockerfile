@@ -1,4 +1,4 @@
-FROM mariadb:10.3
+FROM mariadb:10.1
 
 LABEL MAINTAINER="Greg Junge <gregnuj@gmail.com>"
 
