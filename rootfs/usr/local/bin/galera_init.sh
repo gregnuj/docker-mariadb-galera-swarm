@@ -38,6 +38,13 @@ wsrep-sst-auth=$(wsrep_sst_auth)
 
 wsrep-provider=/usr/lib/galera/libgalera_smm.so
 wsrep-provider-options="debug=${WSREP_DEBUG}" 
+wsrep_provider_options="evs.keepalive_period = PT3S"
+wsrep_provider_options="evs.suspect_timeout = PT30S"
+wsrep_provider_options="evs.inactive_timeout = PT1M"
+wsrep_provider_options="evs.install_timeout = PT1M"
+wsrep_provider_options="evs.max_install_timeouts=10"
+wsrep_provider_options="evs.user_send_window=512"
+wsrep_provider_options="evs.send_window=1024"
 wsrep-provider-options="gcache.size=1G" 
 wsrep-provider-options="gcache.page_size=512M" 
 wsrep_provider_options="gcache.recover=yes"
