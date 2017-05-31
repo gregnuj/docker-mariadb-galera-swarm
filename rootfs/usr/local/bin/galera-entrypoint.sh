@@ -67,11 +67,11 @@ while true ; do
     fi
     exec ${lcmd[*]} 2>&1 & wait $! || true
     interval=$((interval + 10))
-    echo "${cmd[@]:0} failed, sleeping for $interval seconds"
-    if [[ $interval -ge 1500 ]]; then
+    echo "${cmd[@]} failed, sleeping for $interval seconds"
+    if [[ $interval -le 1500 ]]; then
         sleep $interval
     else
-        break
+        exit 1
     fi
 done
 
