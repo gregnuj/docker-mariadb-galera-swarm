@@ -62,7 +62,7 @@ fi
 interval=0
 while true ; do
     lcmd=( ${cmd[*]} )
-    if [[ $(is_primary_component) && $interval -eq 0 ]]; then
+    if [[ $(is_primary_component) ]]; then
         lcmd+=( " --wsrep-new-cluster" )
     fi
     exec ${lcmd[*]} 2>&1 & wait $! || true
