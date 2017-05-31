@@ -63,6 +63,9 @@ interval=0
 while true ; do
     lcmd=( ${cmd[*]} )
     if [[ $(is_primary_component) ]]; then
+        if [[ -f "$(grastate_dat)" ]]; then
+	    sed -i -e 's/^safe_to_bootstrap: *0/safe_to_bootstrap: 1/' $(grastate_dat)
+	fi
         lcmd+=( " --wsrep-new-cluster" )
     fi
     exec ${lcmd[*]} 2>&1 & wait $! || true
