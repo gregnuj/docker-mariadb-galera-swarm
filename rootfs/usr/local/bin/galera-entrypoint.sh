@@ -59,7 +59,7 @@ if [[ -f "$(grastate_dat)" ]]; then
 fi
 
 interval=0
-while true ; do
+while [[ $interval -le 1500 ]]; do
     lcmd=( ${cmd[*]} )
     if [[ ! -z $(is_primary_component) ]]; then
         if [[ -f "$(grastate_dat)" ]]; then
@@ -70,10 +70,6 @@ while true ; do
     exec ${lcmd[*]} 2>&1 & wait $! || true
     interval=$((interval + 10))
     echo "${cmd[@]} failed, sleeping for $interval seconds"
-    if [[ $interval -le 1500 ]]; then
-        sleep $interval
-    else
-        exit 1
-    fi
+    sleep $interval
 done
 

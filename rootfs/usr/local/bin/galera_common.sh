@@ -120,8 +120,6 @@ function wsrep_sst_auth(){
 function is_primary_component(){
     if [[ "$(wsrep_pc_address)" == $(wsrep_node_address) ]]; then
         echo "true"
-    else
-        echo ""
     fi
 }
 
