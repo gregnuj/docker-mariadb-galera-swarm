@@ -1,5 +1,4 @@
 #!/bin/bash -e
-#
 
 [[ -z "$DEBUG" ]] || set -x
 
@@ -87,10 +86,10 @@ function wsrep_pc_address(){
 # Defaults 
 function wsrep_pc_weight(){
     if [[ -z "${WSREP_PC_WEIGHT}" ]]; then
-        #IP_FORTH_OCTET=$(echo "$(wsrep_cluster_members)" | awk -v "RS=," "/$(wsrep_node_address)/ {print FNR}")
-        #WSREP_PC_WEIGHT="$((IP_FORTH_OCTET % 255))"
-        #WSREP_PC_WEIGHT="$((255 - WSREP_PC_WEIGHT))"
         WSREP_PC_WEIGHT=0
+    fi
+    if [[ -z "$(is_cluster_primary)" ]]; then
+        WSREP_PC_WEIGHT=1
     fi
     echo "$WSREP_PC_WEIGHT"
 }

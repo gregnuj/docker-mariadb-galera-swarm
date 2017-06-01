@@ -52,7 +52,7 @@ wsrep_provider_options="pc.recovery=true"
 wsrep_provider_options="pc.npvo=true"
 wsrep_provider_options="pc.wait_prim=true"
 wsrep_provider_options="pc.wait_prim_timeout=PT300S"
-#wsrep_provider_options="pc.weight=$(wsrep_pc_weight)"
+wsrep_provider_options="pc.weight=$(wsrep_pc_weight)"
 
 [sst]
 streamfmt=xbstream
