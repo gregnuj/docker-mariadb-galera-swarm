@@ -88,7 +88,7 @@ function wsrep_pc_weight(){
     if [[ -z "${WSREP_PC_WEIGHT}" ]]; then
         WSREP_PC_WEIGHT=0
     fi
-    if [[ -z "$(is_cluster_primary)" ]]; then
+    if [[ ! -z "$(is_primary_component)" ]]; then
         WSREP_PC_WEIGHT=1
     fi
     echo "$WSREP_PC_WEIGHT"
