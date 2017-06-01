@@ -1,5 +1,4 @@
 #!/bin/bash
-#
 
 set -eo pipefail
 shopt -s nullglob
@@ -62,7 +61,7 @@ fi
 interval=0
 while true ; do
     lcmd=( ${cmd[*]} )
-    if [[ $(is_primary_component) ]]; then
+    if [[ ! -z $(is_primary_component) ]]; then
         if [[ -f "$(grastate_dat)" ]]; then
 	    sed -i -e 's/^safe_to_bootstrap: *0/safe_to_bootstrap: 1/' $(grastate_dat)
 	fi
