@@ -59,7 +59,7 @@ if [[ -f "$(grastate_dat)" ]]; then
 fi
 
 interval=0
-while [[ $interval -le 1500 ]]; do
+while [[ $interval -le 30 ]]; do
     lcmd=( ${cmd[*]} )
     if [[ ! -z $(is_primary_component) ]]; then
         lcmd+=( " --wsrep-new-cluster" )
