@@ -62,10 +62,10 @@ interval=0
 while [[ $interval -le 1500 ]]; do
     lcmd=( ${cmd[*]} )
     if [[ ! -z $(is_primary_component) ]]; then
+        lcmd+=( " --wsrep-new-cluster" )
         if [[ -f "$(grastate_dat)" ]]; then
 	    sed -i -e 's/^safe_to_bootstrap: *0/safe_to_bootstrap: 1/' $(grastate_dat)
 	fi
-        lcmd+=( " --wsrep-new-cluster" )
     fi
     exec ${lcmd[*]} 2>&1 & wait $! || true
     interval=$((interval + 10))

@@ -8,7 +8,7 @@ RUN set -e \
     && apt-get install -y \
     --no-install-recommends \
     --no-install-suggests \
-    vim dnsutils netcat rsync tar \
+    vim dnsutils netcat rsync tar libaio1 \
     curl pigz percona-toolkit pv \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* \
