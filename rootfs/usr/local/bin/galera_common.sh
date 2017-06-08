@@ -35,8 +35,9 @@ function wsrep_cluster_minimum(){
 
 # Built from cluster members
 function wsrep_cluster_address(){
-    WSREP_CLUSTER_PORT=$(wsrep_cluster_port)
-    WSREP_CLUSTER_ADDRESS="${WSREP_CLUSTER_ADDRESS:="$(echo "$(wsrep_cluster_members)" | sed -e 's/^/gcomm:\/\//' -e "s/,/:${WSREP_CLUSTER_PORT},/g" -e "s/$/:${WSREP_CLUSTER_PORT}/")"}"
+    #WSREP_CLUSTER_PORT=$(wsrep_cluster_port)
+    #WSREP_CLUSTER_ADDRESS="${WSREP_CLUSTER_ADDRESS:="$(echo "$(wsrep_cluster_members)" | sed -e 's/^/gcomm:\/\//' -e "s/,/:${WSREP_CLUSTER_PORT},/g" -e "s/$/:${WSREP_CLUSTER_PORT}/")"}"
+    WSREP_CLUSTER_ADDRESS="${WSREP_CLUSTER_ADDRESS:="gcomm://$(service_name):$(wsrep_cluster_port)"}"
     echo "${WSREP_CLUSTER_ADDRESS}"
 }
 
