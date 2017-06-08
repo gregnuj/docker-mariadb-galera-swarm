@@ -86,11 +86,12 @@ function wsrep_pc_address(){
 
 # Defaults 
 function wsrep_pc_weight(){
+    WSREP_CLUSTER_MINIMUM="$(wsrep_cluster_minimum)"
     if [[ -z "${WSREP_PC_WEIGHT}" ]]; then
         WSREP_PC_WEIGHT=$((WSREP_CLUSTER_MINIMUM/2-1))
     fi
     if [[ ! -z "$(is_primary_component)" ]]; then
-        WSREP_PC_WEIGHT=$((WSREP_CLUSTER_MINIMUM/2+1))
+        WSREP_PC_WEIGHT=$((WSREP_PC_WEIGHT+2))
     fi
     echo "$WSREP_PC_WEIGHT"
 }
