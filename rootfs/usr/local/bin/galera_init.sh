@@ -32,6 +32,7 @@ wsrep_on=ON
 wsrep_node_address=$(wsrep_node_address)
 wsrep-cluster-name=$(wsrep_cluster_name)
 wsrep-cluster-address=$(wsrep_cluster_address)
+wsrep_slave_threads=3
 
 wsrep_sst_method=$(wsrep_sst_method)
 wsrep-sst-auth=$(wsrep_sst_auth)

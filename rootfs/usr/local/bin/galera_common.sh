@@ -93,6 +93,7 @@ function wsrep_pc_weight(){
     if [[ ! -z "$(is_primary_component)" ]]; then
         WSREP_PC_WEIGHT=$((WSREP_PC_WEIGHT+2))
     fi
+    [ $WSREP_PC_WEIGHT -gt 0 ] || WSREP_PC_WEIGHT=1
     echo "$WSREP_PC_WEIGHT"
 }
 
