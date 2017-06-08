@@ -62,8 +62,8 @@ if [[ ! -z $(is_primary_component) ]]; then
     if [[ -f "$(grastate_dat)" ]]; then
         sed -i -e 's/^safe_to_bootstrap: *0/safe_to_bootstrap: 1/' $(grastate_dat)
     else
-        lcmd+=( " --wsrep-new-cluster" )
+        cmd+=( " --wsrep-new-cluster" )
     fi
 fi
 
-exec ${lcmd[*]} 2>&1 
+exec ${cmd[*]} 2>&1 
