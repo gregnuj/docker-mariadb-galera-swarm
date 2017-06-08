@@ -58,18 +58,12 @@ if [[ -f "$(grastate_dat)" ]]; then
     mysqld ${cmd[@]:1} --wsrep-recover
 fi
 
-interval=0
-while [[ $interval -le 30 ]]; do
-    lcmd=( ${cmd[*]} )
-    if [[ ! -z $(is_primary_component) ]]; then
+if [[ ! -z $(is_primary_component) ]]; then
+    if [[ -f "$(grastate_dat)" ]]; then
+        sed -i -e 's/^safe_to_bootstrap: *0/safe_to_bootstrap: 1/' $(grastate_dat)
+    else
         lcmd+=( " --wsrep-new-cluster" )
-        if [[ -f "$(grastate_dat)" ]]; then
-	    sed -i -e 's/^safe_to_bootstrap: *0/safe_to_bootstrap: 1/' $(grastate_dat)
-	fi
     fi
-    exec ${lcmd[*]} 2>&1 & wait $! || true
-    interval=$((interval + 10))
-    echo "${cmd[@]} failed, sleeping for $interval seconds"
-    sleep $interval
-done
+fi
 
+exec ${lcmd[*]} 2>&1 
