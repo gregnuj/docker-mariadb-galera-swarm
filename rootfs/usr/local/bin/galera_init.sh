@@ -14,16 +14,13 @@ default_storage_engine = InnoDB
 innodb-doublewrite=1 
 innodb_file_per_table=1
 innodb_autoinc_lock_mode=2
-innodb-flush-log-at-trx-commit=2 
+innodb-flush-log-at-trx-commit=0 
 innodb_log_file_size=48M
-#auto_increment_increment = 2
-#auto_increment_offset  = 1
 
 # Logs
-sync-binlog=1
+sync-binlog=0
 log-bin=binlog
 binlog-format=row
-#expire-logs-days=2
 
 # Galera-related settings #
 [galera]
@@ -32,7 +29,8 @@ wsrep_on=ON
 wsrep_node_address=$(wsrep_node_address)
 wsrep-cluster-name=$(wsrep_cluster_name)
 wsrep-cluster-address=$(wsrep_cluster_address)
-wsrep_slave_threads=3
+wsrep-max-ws-size=1024K
+wsrep_slave_threads=4
 
 wsrep_sst_method=$(wsrep_sst_method)
 wsrep-sst-auth=$(wsrep_sst_auth)
