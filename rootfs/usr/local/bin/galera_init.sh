@@ -56,6 +56,7 @@ wsrep_provider_options="pc.wait_prim_timeout=PT300S"
 wsrep_provider_options="pc.weight=$(wsrep_pc_weight)"
 
 [sst]
+progress=1
 streamfmt=xbstream
 
 EOF
