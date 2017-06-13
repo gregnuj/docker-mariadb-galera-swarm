@@ -65,4 +65,5 @@ if [[ ! -z $(is_primary_component) ]]; then
     cmd+=( " --wsrep-new-cluster" )
 fi
 
+tail -f /var/log/mysql/error.log &
 exec ${cmd[*]} 2>&1
